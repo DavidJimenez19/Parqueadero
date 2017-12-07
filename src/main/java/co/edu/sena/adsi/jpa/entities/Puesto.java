@@ -1,7 +1,9 @@
 package co.edu.sena.adsi.jpa.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,9 +11,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -28,23 +34,17 @@ public class Puesto implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "numero_puestos")
-    private Double numeroPuestos;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "numero_puestos_disponibles")
-    private double numeroPuestosDisponibles;
+    @Column(name = "puesto_seleccionado")
+    private Double puestoSeleccionado;
     @Basic(optional = false)
     @NotNull
     @Column(name = "disponible")
     private boolean disponible;
-    @JoinColumn(name = "carros_id", referencedColumnName = "id")
-    @ManyToOne
-    private Carro carros;
     @JoinColumn(name = "parqueadero_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Parqueadero parqueadero;
+    private Parqueadero parqueaderos;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "puestos")
+    private List<Carro> carrosList;
 
     public Puesto() {
     }
@@ -53,9 +53,8 @@ public class Puesto implements Serializable {
         this.id = id;
     }
 
-    public Puesto(Integer id, double numeroPuestosDisponibles, boolean disponible) {
+    public Puesto(Integer id, boolean disponible) {
         this.id = id;
-        this.numeroPuestosDisponibles = numeroPuestosDisponibles;
         this.disponible = disponible;
     }
 
@@ -67,44 +66,37 @@ public class Puesto implements Serializable {
         this.id = id;
     }
 
-    public Double getNumeroPuestos() {
-        return numeroPuestos;
+    public Double getPuestoSeleccionado() {
+        return puestoSeleccionado;
     }
 
-    public void setNumeroPuestos(Double numeroPuestos) {
-        this.numeroPuestos = numeroPuestos;
+    public void setPuestoSeleccionado(Double puestoSeleccionado) {
+        this.puestoSeleccionado = puestoSeleccionado;
     }
 
-    public double getNumeroPuestosDisponibles() {
-        return numeroPuestosDisponibles;
-    }
-
-    public void setNumeroPuestosDisponibles(double numeroPuestosDisponibles) {
-        this.numeroPuestosDisponibles = numeroPuestosDisponibles;
-    }
-
-    public boolean isDisponible() {
+    public boolean getDisponible() {
         return disponible;
     }
 
     public void setDisponible(boolean disponible) {
         this.disponible = disponible;
     }
-
-    public Carro getCarros() {
-        return carros;
+    
+    public Parqueadero getParqueaderos() {
+        return parqueaderos;
     }
 
-    public void setCarros(Carro carros) {
-        this.carros = carros;
+    public void setParqueaderos(Parqueadero parqueaderos) {
+        this.parqueaderos = parqueaderos;
     }
 
-    public Parqueadero getParqueadero() {
-        return parqueadero;
+    @XmlTransient
+    public List<Carro> getCarrosList() {
+        return carrosList;
     }
 
-    public void setParqueadero(Parqueadero parqueadero) {
-        this.parqueadero = parqueadero;
+    public void setCarrosList(List<Carro> carrosList) {
+        this.carrosList = carrosList;
     }
 
     @Override

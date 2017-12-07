@@ -13,6 +13,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -49,6 +50,12 @@ public class PuestoREST {
     @Path("{id}")
     public Puesto findById(@PathParam("id") Integer id) {
         return puestoEJB.find(id);
+    }
+    
+    @GET
+    @Path("encontrar")
+    public List<Puesto> findByActivo(@QueryParam("disponible") boolean disponible) {
+            return puestoEJB.findPuestoByDisponible(disponible);
     }
 
     /**

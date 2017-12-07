@@ -30,15 +30,12 @@ public class Parqueadero implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "tarifa")
-    private Double tarifa;
-    @Column(name = "caja")
-    private Double caja;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "hora_actual")
-    private double horaActual;
+    @Column(name = "tarifa")
+    private double tarifa;
+    @Column(name = "caja")
+    private double caja;
     @Basic(optional = false)
     @NotNull
     @Column(name = "abierto")
@@ -47,7 +44,7 @@ public class Parqueadero implements Serializable {
     @NotNull
     @Column(name = "puestos")
     private double puestos;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parqueadero")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parqueaderos")
     private List<Puesto> puestosList;
 
     public Parqueadero() {
@@ -57,9 +54,9 @@ public class Parqueadero implements Serializable {
         this.id = id;
     }
 
-    public Parqueadero(Integer id, double horaActual, boolean abierto, double puestos) {
+    public Parqueadero(Integer id, double tarifa, boolean abierto, double puestos) {
         this.id = id;
-        this.horaActual = horaActual;
+        this.tarifa = tarifa;
         this.abierto = abierto;
         this.puestos = puestos;
     }
@@ -72,28 +69,20 @@ public class Parqueadero implements Serializable {
         this.id = id;
     }
 
-    public Double getTarifa() {
+    public double getTarifa() {
         return tarifa;
     }
 
-    public void setTarifa(Double tarifa) {
+    public void setTarifa(double tarifa) {
         this.tarifa = tarifa;
     }
 
-    public Double getCaja() {
+    public double getCaja() {
         return caja;
     }
 
-    public void setCaja(Double caja) {
+    public void setCaja(double caja) {
         this.caja = caja;
-    }
-
-    public double getHoraActual() {
-        return horaActual;
-    }
-
-    public void setHoraActual(double horaActual) {
-        this.horaActual = horaActual;
     }
 
     public boolean getAbierto() {

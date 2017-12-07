@@ -1,18 +1,22 @@
 package co.edu.sena.adsi.rest.services;
 
 import co.edu.sena.adsi.jpa.entities.Carro;
+import co.edu.sena.adsi.jpa.entities.Puesto;
 import co.edu.sena.adsi.jpa.sessions.CarroFacade;
+import co.edu.sena.adsi.jpa.sessions.PuestoFacade;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -28,6 +32,9 @@ public class CarroREST {
 
     @EJB
     private CarroFacade carroEJB;
+    
+    @EJB
+    private PuestoFacade puestoEJB;
 
     /**
      * Obtiene todos los carros
@@ -37,6 +44,19 @@ public class CarroREST {
     @GET
     public List<Carro> findAll() {
         return carroEJB.findAll();
+    }
+    
+     /**
+     * Busca carro por su placa
+     *
+     * @param placa
+     * @return carro
+     */
+    @GET
+    @Path("find")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Carro findByPlaca(@QueryParam("placa") String placa) {
+        return carroEJB.findByPlacaCarro(placa);
     }
 
     /**
@@ -97,6 +117,16 @@ public class CarroREST {
                     .entity(gson.toJson("Error al actualizar el puesto!."))
                     .build();
         }
+    }
+    
+    @DELETE
+    @Path("{id}")
+    public void delete(@PathParam("id") Integer id){
+        Carro carro = carroEJB.find(id);
+        Puesto puesto = puestoEJB.find(carro.getPuestos().getId());
+        carroEJB.remove(carro);
+        puesto.setDisponible(true);
+        puestoEJB.edit(puesto);
     }
 
 }

@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author david
  */
+
 @Stateless
 public class ParqueaderoFacade extends AbstractFacade<Parqueadero> {
 

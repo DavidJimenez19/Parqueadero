@@ -9,6 +9,7 @@ co/edu/sena/adsi/jpa/entities/Parqueadero_.class
 co/edu/sena/adsi/rest/services/ParqueaderoREST.class
 co/edu/sena/adsi/jpa/sessions/ParqueaderoFacade.class
 co/edu/sena/adsi/jpa/sessions/PuestoFacade.class
+co/edu/sena/adsi/rest/services/NewCrossOriginResourceSharingFilter.class
 co/edu/sena/adsi/jpa/sessions/AbstractFacade.class
 co/edu/sena/adsi/jpa/entities/Parqueadero.class
 co/edu/sena/adsi/jpa/entities/Carro.class

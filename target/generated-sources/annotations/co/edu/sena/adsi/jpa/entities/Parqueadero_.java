@@ -6,7 +6,7 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-12-04T09:40:37")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-12-07T16:12:48")
 @StaticMetamodel(Parqueadero.class)
 public class Parqueadero_ { 
 
@@ -15,7 +15,6 @@ public class Parqueadero_ {
     public static volatile ListAttribute<Parqueadero, Puesto> puestosList;
     public static volatile SingularAttribute<Parqueadero, Integer> id;
     public static volatile SingularAttribute<Parqueadero, Double> caja;
-    public static volatile SingularAttribute<Parqueadero, Double> horaActual;
     public static volatile SingularAttribute<Parqueadero, Boolean> abierto;
 
 }

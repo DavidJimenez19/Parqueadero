@@ -62,6 +62,7 @@ public class ParqueaderoREST {
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
         try {
+            parqueadero.setAbierto(Boolean.TRUE);
             parqueaderoEJB.create(parqueadero);
             return Response.status(Response.Status.CREATED)
                     .entity(gson.toJson("El puesto se registró correctamente"))
